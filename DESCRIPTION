@@ -1,0 +1,37 @@
+Package: DescriptiveStudies
+Type: Package
+Title: Characterizations of Cohorts
+Version: 0.0.2
+Date: 2022-08-01
+Authors@R: c(
+	person("Jenna", "Reps", role = c("aut"))
+	)
+Maintainer: Jenna Reps <ryan@ohdsi.org>
+Description: Various characterizations of a target and outcome cohort.
+License: Apache License 2.0
+URL: https://ohdsi.github.io/Characterization, https://github.com/OHDSI/Characterization
+BugReports: https://github.com/OHDSI/Characterization/issues
+Depends:
+	R (>= 4.0.0)
+Imports:
+  Andromeda,
+	DatabaseConnector (>= 5.0.0),
+	FeatureExtraction  (>= 3.0.0),
+	SqlRender (>= 1.9.0),
+	ParallelLogger (>= 3.0.0),
+	checkmate,
+	readr,
+	dplyr,
+	rlang
+Suggests:
+	testthat,
+	Eunomia,
+	withr
+Remotes:
+  ohdsi/Andromeda,
+	ohdsi/FeatureExtraction,
+	ohdsi/Eunomia
+NeedsCompilation: no
+RoxygenNote: 7.2.0
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
