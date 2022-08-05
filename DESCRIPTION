@@ -4,9 +4,9 @@ Title: Characterizations of Cohorts
 Version: 0.0.2
 Date: 2022-08-01
 Authors@R: c(
-	person("Jenna", "Reps", role = c("aut"))
+	person("Jenna", "Reps", , "reps@ohdsi.org", role = c("aut", "cre"))
 	)
-Maintainer: Jenna Reps <ryan@ohdsi.org>
+Maintainer: Jenna Reps <reps@ohdsi.org>
 Description: Various characterizations of a target and outcome cohort.
 License: Apache License 2.0
 URL: https://ohdsi.github.io/Characterization, https://github.com/OHDSI/Characterization
@@ -32,6 +32,6 @@ Remotes:
 	ohdsi/FeatureExtraction,
 	ohdsi/Eunomia
 NeedsCompilation: no
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
