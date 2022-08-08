@@ -128,7 +128,7 @@ loadCharacterizationSettings <- function(
 #' @param cdmDatabaseSchema The schema with the OMOP CDM data
 #' @param characterizationSettings The study settings created using \code{createCharacterizationSettings}
 #' @param saveDirectory The location to save the results to
-#' @param stringAppendToTables A string to append the tables in the results
+#' @param tablePrefix A string to append the tables in the results
 #' @param databaseId The unqiue identifier for the cdm database
 #'
 #' @return
@@ -146,7 +146,7 @@ runCharacterizationAnalyses <- function(
   cdmDatabaseSchema,
   characterizationSettings,
   saveDirectory,
-  stringAppendToTables = 'c',
+  tablePrefix = 'c_',
   databaseId = '1'
 ){
   # inputs checks
@@ -155,7 +155,7 @@ runCharacterizationAnalyses <- function(
     settings = characterizationSettings,
     errorMessages =  errorMessages
     )
-
+  assert_table_prefix(tablePrefix = tablePrefix, errorMessage = errorMessages)
   checkmate::reportAssertions(errorMessages)
 
   # create the Database
@@ -168,7 +168,7 @@ runCharacterizationAnalyses <- function(
     targetDialect = 'sqlite',
     deleteExistingTables = F,
     createTables = T,
-    stringAppendToTables = stringAppendToTables
+    tablePrefix = tablePrefix
   )
 
   if(!is.null(characterizationSettings$timeToEventSettings)){
@@ -210,7 +210,7 @@ runCharacterizationAnalyses <- function(
           databaseSchema = 'main',
           tableName = 'time_to_event',
           andromedaObject = result$timeToEvent,
-          stringAppendToTables = stringAppendToTables
+          tablePrefix = tablePrefix
         )
       }
     }
@@ -256,7 +256,7 @@ runCharacterizationAnalyses <- function(
           databaseSchema = 'main',
           tableName = 'dechallenge_rechallenge',
           andromedaObject = result$dechallengeRechallenge,
-          stringAppendToTables = stringAppendToTables
+          tablePrefix = tablePrefix
         )
       }
     }
@@ -306,7 +306,7 @@ runCharacterizationAnalyses <- function(
           databaseSchema = 'main',
           tableName = 'settings',
           andromedaObject = result$settings,
-          stringAppendToTables = stringAppendToTables
+          tablePrefix = tablePrefix
         );
 
         insertAndromedaToDatabase(
@@ -314,14 +314,14 @@ runCharacterizationAnalyses <- function(
           databaseSchema = 'main',
           tableName = 'analysis_ref',
           andromedaObject = result$analysisRef,
-          stringAppendToTables = stringAppendToTables
+          tablePrefix = tablePrefix
         );
         insertAndromedaToDatabase(
           connection = conn,
           databaseSchema = 'main',
           tableName = 'covariate_ref',
           andromedaObject = result$covariateRef,
-          stringAppendToTables = stringAppendToTables
+          tablePrefix = tablePrefix
         );
 
         if(!is.null(result$covariates)){
@@ -330,7 +330,7 @@ runCharacterizationAnalyses <- function(
             databaseSchema = 'main',
             tableName = 'covariates',
             andromedaObject = result$covariates,
-            stringAppendToTables = stringAppendToTables
+            tablePrefix = tablePrefix
           )
         };
 
@@ -340,7 +340,7 @@ runCharacterizationAnalyses <- function(
             databaseSchema = 'main',
             tableName = 'covariates_continuous',
             andromedaObject = result$covariatesContinuous,
-            stringAppendToTables = stringAppendToTables
+            tablePrefix = tablePrefix
           )
         };
 

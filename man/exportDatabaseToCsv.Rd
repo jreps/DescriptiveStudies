@@ -8,7 +8,7 @@ exportDatabaseToCsv(
   connectionDetails,
   resultSchema,
   targetDialect,
-  stringAppendToTables,
+  tablePrefix,
   tempEmulationSchema = NULL,
   saveDirectory
 )
@@ -22,7 +22,7 @@ function \code{connect} in the
 
 \item{targetDialect}{The database management system being used}
 
-\item{stringAppendToTables}{A string that appends to the PatientLevelPrediction result tables}
+\item{tablePrefix}{A string that appends to the PatientLevelPrediction result tables}
 
 \item{tempEmulationSchema}{The temp schema used when the database management system is oracle}
 
