@@ -115,7 +115,7 @@ runCharacterizationAnalyses(
   outcomeTable = 'cohort',
   characterizationSettings = characterizationSettings,
   saveDirectory = file.path(tempdir(), 'run'),
-  stringAppendToTables = 'c',
+  tablePrefix = 'c_',
   databaseId = '1'
 )
 
@@ -140,7 +140,7 @@ exportDatabaseToCsv(
   connectionDetails = connectionDetailsT,
   resultSchema = 'main',
   targetDialect = 'sqlite',
-  stringAppendToTables = 'c',
+  tablePrefix = 'c_',
   saveDirectory = file.path(tempdir(),'csv')
 )
 
