@@ -182,7 +182,9 @@ createCharacterizationTables <- function(
 #'                                     \code{DatabaseConnector} package.
 #' @param resultSchema                 The name of the database schema that the result tables will be created.
 #' @param targetDialect                The database management system being used
-#' @param tablePrefix         A string that appends to the PatientLevelPrediction result tables
+#' @param tablePrefix                  The table prefix to apply to the characterization result tables
+#' @param tablePrefix                  The table prefix to apply to the characterization result tables
+#' @param filePrefix                   The prefix to apply to the files
 #' @param tempEmulationSchema          The temp schema used when the database management system is oracle
 #' @param saveDirectory                The directory to save the csv results
 #'
@@ -195,10 +197,16 @@ exportDatabaseToCsv <- function(
   resultSchema,
   targetDialect,
   tablePrefix = "c_",
+  filePrefix = NULL,
   tempEmulationSchema = NULL,
   saveDirectory
 ){
   assert_table_prefix(tablePrefix)
+  if (!is.null(filePrefix)) {
+    assert_table_prefix(filePrefix)
+  } else {
+    filePrefix = ''
+  }
   # connect to result database
   connection <- DatabaseConnector::connect(
     connectionDetails = connectionDetails
@@ -231,7 +239,7 @@ exportDatabaseToCsv <- function(
     # save the results as a csv
     readr::write_excel_csv(
       x = result,
-      file = file.path(saveDirectory, paste0(table,'.csv'))
+      file = file.path(saveDirectory, paste0(filePrefix, table,'.csv'))
     )
   }
 
