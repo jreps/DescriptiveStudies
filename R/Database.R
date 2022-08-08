@@ -183,7 +183,6 @@ createCharacterizationTables <- function(
 #' @param resultSchema                 The name of the database schema that the result tables will be created.
 #' @param targetDialect                The database management system being used
 #' @param tablePrefix                  The table prefix to apply to the characterization result tables
-#' @param tablePrefix                  The table prefix to apply to the characterization result tables
 #' @param filePrefix                   The prefix to apply to the files
 #' @param tempEmulationSchema          The temp schema used when the database management system is oracle
 #' @param saveDirectory                The directory to save the csv results
