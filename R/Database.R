@@ -58,7 +58,7 @@ insertAndromedaToDatabase <- function(
   andromedaObject,
   tempEmulationSchema,
   bulkLoad = T,
-  tablePrefix = ''
+  tablePrefix = 'c_'
 ){
   assert_table_prefix(tablePrefix)
 
@@ -194,11 +194,11 @@ exportDatabaseToCsv <- function(
   connectionDetails,
   resultSchema,
   targetDialect,
-  tablePrefix,
+  tablePrefix = "c_",
   tempEmulationSchema = NULL,
   saveDirectory
 ){
-
+  assert_table_prefix(tablePrefix)
   # connect to result database
   connection <- DatabaseConnector::connect(
     connectionDetails = connectionDetails
@@ -209,8 +209,6 @@ exportDatabaseToCsv <- function(
   if(!dir.exists(saveDirectory)){
     dir.create(saveDirectory, recursive = T)
   }
-
-  tablePrefix <- paste0(gsub(' ' , '', gsub('_', '', tablePrefix)), '_')
 
   # get the table names using the function in uploadToDatabase.R
   tables <- getResultTables()
@@ -257,15 +255,16 @@ checkTablePrefix <- function(
     ...
 ) {
   checkmate::assert_character(tablePrefix)
+  errorMessage = "Table prefix must contain lower-case alpha-numeric characters with no spaces and end with an underscore (_) character."
   if (!endsWith(x = tablePrefix, suffix = "_")) {
-    return("Table prefix must end with _")
+    return(errorMessage)
   }
   tempTablePrefix <- gsub(pattern = "_",
                           replacement = '',
                           x = tablePrefix)
   if (!grepl(pattern = "^([a-z0-9]+)$",
              x = tempTablePrefix)) {
-    return("Table prefix must contain lower-case alpha-numeric characters with no spaces.")
+    return(errorMessage)
   }
   return(TRUE)
 }
