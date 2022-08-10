@@ -122,7 +122,7 @@ runCharacterizationAnalyses(
 testthat::expect_true(
   file.exists(file.path(tempdir(),'run', 'tracker.csv'))
 )
-tracker <- readr::read_csv(
+tracker <- CohortGenerator::readCsv(
   file = file.path(tempdir(),'run', 'tracker.csv')
 )
 testthat::expect_true(

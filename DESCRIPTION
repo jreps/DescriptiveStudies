@@ -15,6 +15,7 @@ Depends:
 	R (>= 4.0.0)
 Imports:
   Andromeda,
+  CohortGenerator (>= 0.6.0),
 	DatabaseConnector (>= 5.0.4),
 	FeatureExtraction  (>= 3.0.0),
 	SqlRender (>= 1.9.0),
@@ -29,6 +30,7 @@ Suggests:
 	withr
 Remotes:
   ohdsi/Andromeda,
+  ohdsi/CohortGenerator,
 	ohdsi/FeatureExtraction,
 	ohdsi/Eunomia
 NeedsCompilation: no

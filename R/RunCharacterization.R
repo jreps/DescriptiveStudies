@@ -192,9 +192,9 @@ runCharacterizationAnalyses <- function(
 
       if(!is.null(result)){
 
-        # log that run was sucessful
-        readr::write_csv(
-          data.frame(
+        # log that run was successful
+        CohortGenerator::writeCsv(
+          x = data.frame(
             analysis_type = 'timeToEvent',
             run_id = i,
             database_id = databaseId,
@@ -202,7 +202,9 @@ runCharacterizationAnalyses <- function(
           ),
           file = file.path(saveDirectory, 'tracker.csv'),
           append = T,
-          col_names = !file.exists(file.path(saveDirectory, 'tracker.csv'))
+          warnOnCaseMismatch = FALSE,
+          warnOnFileNameCaseMismatch = FALSE,
+          warnOnUploadRuleViolations = FALSE
         )
 
         insertAndromedaToDatabase(
@@ -239,8 +241,8 @@ runCharacterizationAnalyses <- function(
 
       if(!is.null(result)){
         # log that run was sucessful
-        readr::write_csv(
-          data.frame(
+        CohortGenerator::writeCsv(
+          x = data.frame(
             analysis_type = 'dechallengeRechallenge',
             run_id = i,
             database_id = databaseId,
@@ -248,7 +250,9 @@ runCharacterizationAnalyses <- function(
           ),
           file = file.path(saveDirectory, 'tracker.csv'),
           append = T,
-          col_names = !file.exists(file.path(saveDirectory, 'tracker.csv'))
+          warnOnCaseMismatch = FALSE,
+          warnOnFileNameCaseMismatch = FALSE,
+          warnOnUploadRuleViolations = FALSE
         )
 
         insertAndromedaToDatabase(
@@ -289,8 +293,8 @@ runCharacterizationAnalyses <- function(
       if(!is.null(result)){
 
         # log that run was sucessful
-        readr::write_csv(
-          data.frame(
+        CohortGenerator::writeCsv(
+          x = data.frame(
             analysis_type = 'aggregateCovariates',
             run_id = i,
             database_id = databaseId,
@@ -298,8 +302,10 @@ runCharacterizationAnalyses <- function(
             ),
           file = file.path(saveDirectory, 'tracker.csv'),
           append = T,
-          col_names = !file.exists(file.path(saveDirectory, 'tracker.csv'))
-          )
+          warnOnCaseMismatch = FALSE,
+          warnOnFileNameCaseMismatch = FALSE,
+          warnOnUploadRuleViolations = FALSE
+        )
 
         insertAndromedaToDatabase(
           connection = conn,
