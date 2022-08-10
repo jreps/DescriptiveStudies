@@ -166,7 +166,7 @@ runCharacterizationAnalyses <- function(
     conn = conn,
     resultSchema = 'main',
     targetDialect = 'sqlite',
-    deleteExistingTables = F,
+    deleteExistingTables = T,
     createTables = T,
     tablePrefix = tablePrefix
   )

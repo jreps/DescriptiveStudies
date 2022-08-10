@@ -124,16 +124,16 @@ createCharacterizationTables <- function(
   if(deleteExistingTables){
     ParallelLogger::logInfo('Deleting existing tables')
     tables <- getResultTables()
-    tables <- paste0(tablePrefix,tables)
+    tables <- paste0(toupper(tablePrefix),tables)
 
-    alltables <- DatabaseConnector::getTableNames(
+    alltables <- toupper(DatabaseConnector::getTableNames(
       connection = conn,
       databaseSchema = resultSchema
-    )
+    ))
 
     for(tb in tables){
-      if(tb %in%alltables){
-        sql <- 'TRUNCATE TABLE @my_schema.@table'
+      if(tb %in% alltables){
+        sql <- 'DELETE FROM @my_schema.@table'
         sql <- SqlRender::render(sql,
                                  my_schema = resultSchema,
                                  table=tb)
@@ -238,7 +238,7 @@ exportDatabaseToCsv <- function(
     # save the results as a csv
     CohortGenerator::writeCsv(
       x = result,
-      file = file.path(saveDirectory, paste0(filePrefix, table,'.csv'))
+      file = file.path(saveDirectory, paste0(tolower(filePrefix), tolower(table),'.csv'))
     )
   }
 
@@ -252,7 +252,7 @@ getResultTables <- function(){
         'settings', 'resultsDataModelSpecification.csv',
         package = 'DescriptiveStudies'
       )
-    )$table_name
+    )$tableName
   )))
 }
 
