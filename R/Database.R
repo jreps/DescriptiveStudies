@@ -234,6 +234,7 @@ exportDatabaseToCsv <- function(
       targetDialect = targetDialect,
       tempEmulationSchema = tempEmulationSchema)
     result <- DatabaseConnector::querySql(connection, sql, snakeCaseToCamelCase = TRUE)
+    result <- formatDouble(result)
 
     # save the results as a csv
     CohortGenerator::writeCsv(
@@ -273,4 +274,14 @@ checkTablePrefix <- function(
     return(errorMessage)
   }
   return(TRUE)
+}
+
+# Removes scientific notation for any columns that are
+# formatted as doubles. Based on this GitHub issue:
+# https://github.com/tidyverse/readr/issues/671#issuecomment-300567232
+formatDouble <- function(x, scientific = F, ...) {
+  doubleCols <- vapply(x, is.double, logical(1))
+  x[doubleCols] <- lapply(x[doubleCols], format, scientific = scientific, ...)
+  x
+
 }
