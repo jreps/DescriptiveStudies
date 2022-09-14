@@ -244,7 +244,7 @@ group by two1.target_cohort_definition_id, two1.outcome_cohort_definition_id,
 
 drop table if exists #two_tte_summary;
 create table #two_tte_summary as
-select @database_id as database_id, temp.* from
+select '@database_id' as database_id, temp.* from
 (
 --daily counting for +/- 100 days
 select target_cohort_definition_id, outcome_cohort_definition_id, outcome_type, target_outcome_type, time_to_event, num_events, 'per 1-day' as time_scale

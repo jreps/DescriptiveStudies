@@ -65,7 +65,7 @@ createDechallengeRechallengeSettings <- function(
 #' @template TargetOutcomeTables
 #' @template TempEmulationSchema
 #' @param dechallengeRechallengeSettings   The settings for the timeToEvent study
-#' @param databaseId An identifier for the database
+#' @param databaseId An identifier for the database (string)
 #'
 #' @return
 #' An \code{Andromeda::andromeda()} object containing the dechallenge rechallenge results
@@ -79,7 +79,7 @@ computeDechallengeRechallengeAnalyses <- function(
   outcomeTable =  targetTable,
   tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
   dechallengeRechallengeSettings,
-  databaseId = '1'
+  databaseId = 'database 1'
 ) {
 
   # check inputs
@@ -190,7 +190,7 @@ computeDechallengeRechallengeAnalyses <- function(
 #' @template TargetOutcomeTables
 #' @template TempEmulationSchema
 #' @param dechallengeRechallengeSettings   The settings for the timeToEvent study
-#' @param databaseId An identifier for the database
+#' @param databaseId An identifier for the database (string)
 #' @param showSubjectId if F then subject_ids are hidden (recommended if sharing results)
 #'
 #' @return
@@ -205,7 +205,7 @@ computeRechallengeFailCaseSeriesAnalyses <- function(
   outcomeTable =  targetTable,
   tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
   dechallengeRechallengeSettings,
-  databaseId = '1',
+  databaseId = 'database 1',
   showSubjectId = F
 ) {
 

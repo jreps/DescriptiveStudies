@@ -63,7 +63,7 @@ createAggregateCovariateSettings <- function(
 #' @template TargetOutcomeTables
 #' @template TempEmulationSchema
 #' @param aggregateCovariateSettings   The settings for the AggregateCovariate study
-#' @param databaseId Unique identifier for the database
+#' @param databaseId Unique identifier for the database (string)
 #' @param runId  Unique identifier for the tar and covariate setting
 #'
 #' @return
@@ -80,7 +80,7 @@ computeAggregateCovariateAnalyses <- function(
   outcomeTable =  targetTable,  # remove
   tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
   aggregateCovariateSettings,
-  databaseId = '1',
+  databaseId = 'database 1',
   runId = 1
 ) {
 

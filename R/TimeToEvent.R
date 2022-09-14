@@ -64,7 +64,7 @@ createTimeToEventSettings <- function(
 #' @template TempEmulationSchema
 #' @param cdmDatabaseSchema The database schema containing the OMOP CDM data
 #' @param timeToEventSettings   The settings for the timeToEvent study
-#' @param databaseId An identifier for the database
+#' @param databaseId An identifier for the database (string)
 #'
 #' @return
 #' An \code{Andromeda::andromeda()} object containing the time to event results.
@@ -79,7 +79,7 @@ computeTimeToEventAnalyses <- function(
   tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
   cdmDatabaseSchema,
   timeToEventSettings,
-  databaseId = '1'
+  databaseId = 'database 1'
 ) {
 
   # check inputs

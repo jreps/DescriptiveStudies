@@ -9,7 +9,7 @@ where cohort_definition_id in (@outcome_ids)
 ;
 
 select
-@database_id as database_id,
+'@database_id' as database_id,
 @dechallenge_stop_interval as dechallenge_stop_interval,
 @dechallenge_evaluation_window as dechallenge_evaluation_window,
 target_cohort_definition_id,
