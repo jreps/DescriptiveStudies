@@ -17,6 +17,8 @@ createAggregateCovariateSettings(
 \arguments{
 \item{targetIds}{A list of cohortIds for the target cohorts}
 
+\item{outcomeIds}{A list of cohortIds for the outcome cohorts}
+
 \item{riskWindowStart}{The start of the risk window (in days) relative to the \code{startAnchor}.}
 
 \item{startAnchor}{The anchor point for the start of the risk window. Can be \code{"cohort start"}
@@ -28,8 +30,6 @@ or \code{"cohort end"}.}
 or \code{"cohort end"}.}
 
 \item{covariateSettings}{An object created using \code{FeatureExtraction::createCovariateSettings}}
-
-\item{outcomrIds}{A list of cohortIds for the outcome cohorts}
 }
 \value{
 A list with the settings

@@ -1,5 +1,5 @@
 table_name,column_name,data_type,is_required,primary_key,foreign key,empty_is_na,mincellcount,description
-time_to_event,database_id,int,,,,,,
+time_to_event,database_id,,T,,,,,The identifier for the database
 time_to_event,target_cohort_definition_id,bigint,T,,,,,The cohort definition id for the target cohort
 time_to_event,outcome_cohort_definition_id,bigint,T,,,,,The cohort definition id for the outcome cohort
 time_to_event,outcome_type,varchar(20),T,,,,,Is the outvome a first occurrence or repeat
@@ -7,80 +7,83 @@ time_to_event,target_outcome_type,varchar(20),T,,,,,When does the outcome occur 
 time_to_event,time_to_event,int,T,,,,,The time (in days) from target index to outcome start
 time_to_event,num_events,int,T,,,,,Number of events that occur during the specified time to event
 time_to_event,time_scale,varchar(20),T,,,,,time scale for the number of events
-rechallenge_fail_case_series,database_id,,,,,,,
+rechallenge_fail_case_series,database_id,,T,,,,,The identifier for the database
+rechallenge_fail_case_series,dechallenge_stop_interval,int,T,,,,,The time period that É
+rechallenge_fail_case_series,dechallenge_evaluation_window,int,T,,,,,The time period that É
 rechallenge_fail_case_series,target_cohort_definition_id,bigint,T,,,,,The cohort definition id for the target cohort
 rechallenge_fail_case_series,outcome_cohort_definition_id,bigint,T,,,,,The cohort definition id for the outcome cohort
-rechallenge_fail_case_series,subject_id,bigint,F,,,,,The person identifier for the failed case series
-rechallenge_fail_case_series,first_exposure_number,int,,,,,,
-rechallenge_fail_case_series,first_exposure_start_date,date,,,,,,
-rechallenge_fail_case_series,first_exposure_end_date,date,,,,,,
-rechallenge_fail_case_series,first_outcome_number,int,,,,,,
-rechallenge_fail_case_series,first_outcome_start_date,date,,,,,,
-rechallenge_fail_case_series,rechallenge_exposure_number,int,,,,,,
-rechallenge_fail_case_series,rechallenge_exposure_start_date,date,,,,,,
-rechallenge_fail_case_series,rechallenge_exposure_end_date,date,,,,,,
-rechallenge_fail_case_series,rechallenge_outcome_number,int,,,,,,
-rechallenge_fail_case_series,rechallenge_outcome_start_date,date,,,,,,
-dechallenge_rechallenge,database_id,,,,,,,
+rechallenge_fail_case_series,person_key,int,T,,,,,The dense rank for the patient (an identifier that is not the same as the database)
+rechallenge_fail_case_series,subject_id,bigint,F,,,,,The person identifier for the failed case series (optional)
+rechallenge_fail_case_series,dechallenge_exposure_number,int,T,,,,,The number of times a dechallenge has occurred
+rechallenge_fail_case_series,dechallenge_exposure_start_date_offset,date,T,,,,,The offset for the dechallenge start (number of days after index)
+rechallenge_fail_case_series,dechallenge_exposure_end_date_offset,date,T,,,,,The offset for the dechallenge end (number of days after index)
+rechallenge_fail_case_series,dechallenge_outcome_number,int,T,,,,,The number of times an outcome has occurred during the dechallenge
+rechallenge_fail_case_series,dechallenge_outcome_start_date_offset,date,T,,,,,The offset for the outcome start (number of days after index)
+rechallenge_fail_case_series,rechallenge_exposure_number,int,T,,,,,The number of times a rechallenge exposure has occurred
+rechallenge_fail_case_series,rechallenge_exposure_start_date_offset,date,T,,,,,The offset for the rechallenge start (number of days after index)
+rechallenge_fail_case_series,rechallenge_exposure_end_date_offset,date,T,,,,,The offset for the rechallenge end (number of days after index)
+rechallenge_fail_case_series,rechallenge_outcome_number,int,T,,,,,The number of times the outcome has occurred during the rechallenge
+rechallenge_fail_case_series,rechallenge_outcome_start_date_offset,date,T,,,,,The offset for the outcome start (number of days after index)
+dechallenge_rechallenge,database_id,,T,,,,,The identifier for the database
 dechallenge_rechallenge,target_cohort_definition_id,bigint,T,,,,,The cohort definition id for the target cohort
 dechallenge_rechallenge,outcome_cohort_definition_id,bigint,T,,,,,The cohort definition id for the outcome cohort
-dechallenge_rechallenge,num_exposure_eras,int,,,,,,
-dechallenge_rechallenge,num_persons_exposure,int,,,,,,
-dechallenge_rechallenge,num_cases,int,,,,,,
-dechallenge_rechallenge,dechallenge_fail,int,,,,,,
-dechallenge_rechallenge,dechallenge_success,int,,,,,,
-dechallenge_rechallenge,rechallenge_attempt,int,,,,,,
-dechallenge_rechallenge,rechallenge_fail,int,,,,,,
-dechallenge_rechallenge,rechallenge_success,int,,,,,,
-dechallenge_rechallenge,pct_dechallenge_attempt,float,,,,,,
-dechallenge_rechallenge,pct_dechallenge_success,float,,,,,,
-dechallenge_rechallenge,pct_dechallenge_fail,float,,,,,,
-dechallenge_rechallenge,pct_rechallenge_attempt,float,,,,,,
-dechallenge_rechallenge,pct_rechallenge_success,float,,,,,,
-dechallenge_rechallenge,pct_rechallenge_fail,float,,,,,,
-analysis_ref,database_id,int,,,,,,
-analysis_ref,run_id,int,,,,,,
-analysis_ref,analysis_id,int,,,,,,
-analysis_ref,analysis_name,varchar(MAX),,,,,,
-analysis_ref,domain_id,varchar(MAX),,,,,,
-analysis_ref,start_day,int,,,,,,
-analysis_ref,end_day,int,,,,,,
-analysis_ref,is_binary,varchar(1),,,,,,
-analysis_ref,missing_means_zero,varchar(1),,,,,,
-covariate_ref,database_id,int,,,,,,
-covariate_ref,run_id,int,,,,,,
-covariate_ref,covariate_id,int,,,,,,
-covariate_ref,covariate_name,varchar(MAX),,,,,,
-covariate_ref,analysis_id,int,,,,,,
-covariate_ref,concept_id,int,,,,,,
-covariates,database_id,int,,,,,,
-covariates,run_id,int,,,,,,
-covariates,cohort_definition_id,int,,,,,,
-covariates,covariate_id,int,,,,,,
-covariates,sum_value,int,,,,,,
-covariates,average_value,float,,,,,,
-covariates_continuous,database_id,int,,,,,,
-covariates_continuous,run_id,int,,,,,,
-covariates_continuous,cohort_definition_id,bigint,,,,,,
-covariates_continuous,covariate_id,int,,,,,,
-covariates_continuous,count_value,int,,,,,,
-covariates_continuous,min_value,float,,,,,,
-covariates_continuous,max_value,float,,,,,,
-covariates_continuous,average_value,float,,,,,,
-covariates_continuous,standard_deviation,float,,,,,,
-covariates_continuous,median_value,float,,,,,,
-covariates_continuous,p_10_value,float,,,,,,
-covariates_continuous,p_25_value,float,,,,,,
-covariates_continuous,p_75_value,float,,,,,,
-covariates_continuous,p_90_value,float,,,,,,
-settings,run_id,int,,,,,,
-settings,database_id,int,,,,,,
-settings,COVARIATE_SETTING_JSON,varchar(max),,,,,,
-settings,combined_cohort_id,int,,,,,,
-settings,cohort_type,varchar(10),,,,,,
-settings,target_cohort_id,int,,,,,,
-settings,outcome_cohort_id,int,,,,,,
-settings,risk_window_start,int,,,,,,
-settings,risk_window_end,int,,,,,,
-settings,start_anchor,varchar(15),,,,,,
-settings,end_anchor,varchar(15),,,,,,
+dechallenge_rechallenge,num_exposure_eras,int,T,,,,,The number of drug eras within the target cohort 
+dechallenge_rechallenge,num_persons_exposure,int,T,,,,,The number of unique patients within the target cohort
+dechallenge_rechallenge,num_cases,int,T,,,,,The number of outcomes occurring within the exposure_eras
+dechallenge_rechallenge,dechallenge_fail,int,T,,,,,The number of times the outcome continues after an exposure era ends
+dechallenge_rechallenge,dechallenge_success,int,T,,,,,The number of times the outcome stops after an exposure era ends
+dechallenge_rechallenge,rechallenge_attempt,int,T,,,,,The number of times a patient has a new exposure era after a previous exposure era where the outcome stopped after exposure
+dechallenge_rechallenge,rechallenge_fail,int,T,,,,,The number of exposures where the outcome restarts during a rechallenge attempt
+dechallenge_rechallenge,rechallenge_success,int,T,,,,,The number of exposures where the outcome does not restart during a rechallenge attempt
+dechallenge_rechallenge,pct_dechallenge_attempt,float,T,,,,,
+dechallenge_rechallenge,pct_dechallenge_success,float,T,,,,,
+dechallenge_rechallenge,pct_dechallenge_fail,float,T,,,,,
+dechallenge_rechallenge,pct_rechallenge_attempt,float,T,,,,,
+dechallenge_rechallenge,pct_rechallenge_success,float,T,,,,,
+dechallenge_rechallenge,pct_rechallenge_fail,float,T,,,,,
+analysis_ref,database_id,,T,,,,,The identifier for the database
+analysis_ref,run_id,int,T,,,,,The identifier for the analysis run 
+analysis_ref,analysis_id,int,T,,,,,The analysis id indicating the type of covariate
+analysis_ref,analysis_name,varchar(MAX),T,,,,,The analysis name 
+analysis_ref,domain_id,varchar(MAX),T,,,,,The domain reference
+analysis_ref,start_day,int,T,,,,,The start date for the covariate lookback
+analysis_ref,end_day,int,T,,,,,The end date for the covariate lookback
+analysis_ref,is_binary,varchar(1),T,,,,,Whether the analysis covariates are binary
+analysis_ref,missing_means_zero,varchar(1),T,,,,,Whether the analysis covariates are zero if missing
+covariate_ref,database_id,int,T,,,,, The identifier for the database
+covariate_ref,run_id,int,T,,,,,The identifier for the analysis run 
+covariate_ref,covariate_id,int,T,,,,,The identifier for the covariate
+covariate_ref,covariate_name,varchar(MAX),T,,,,,The name of the covariate
+covariate_ref,analysis_id,int,T,,,,,The analysis id for the covariate
+covariate_ref,concept_id,int,F,,,,,The concept id for the covariate (optional)
+covariates,database_id,,T,,,,,The identifier for the database
+covariates,run_id,int,T,,,,,The identifier for the analysis run 
+covariates,cohort_definition_id,int,T,,,,,The cohort identifier
+covariates,covariate_id,int,T,,,,,The covariate identifier
+covariates,sum_value,int,T,,,,,The total sum of the covariate's values for the whole cohort
+covariates,average_value,float,T,,,,,The mean value of the covariate for the whole cohort
+covariates_continuous,database_id,int,T,,,,,The identifier for the database
+covariates_continuous,run_id,int,T,,,,,
+covariates_continuous,cohort_definition_id,bigint,T,,,,,
+covariates_continuous,covariate_id,int,T,,,,,
+covariates_continuous,count_value,int,T,,,,,
+covariates_continuous,min_value,float,T,,,,,
+covariates_continuous,max_value,float,T,,,,,
+covariates_continuous,average_value,float,T,,,,,
+covariates_continuous,standard_deviation,float,T,,,,,
+covariates_continuous,median_value,float,T,,,,,
+covariates_continuous,p_10_value,float,T,,,,,
+covariates_continuous,p_25_value,float,T,,,,,
+covariates_continuous,p_75_value,float,T,,,,,
+covariates_continuous,p_90_value,float,T,,,,,
+settings,run_id,int,T,,,,,The identifier for the analysis run 
+settings,database_id,,T,,,,,The identifier for the database
+settings,covariate_setting_json,varchar(max),T,,,,,A json containing the covariate settings
+settings,combined_cohort_id,int,T,,,,,
+settings,cohort_type,varchar(10),T,,,,,
+settings,target_cohort_id,int,T,,,,,
+settings,outcome_cohort_id,int,T,,,,,
+settings,risk_window_start,int,T,,,,,
+settings,risk_window_end,int,T,,,,,
+settings,start_anchor,varchar(15),T,,,,,
+settings,end_anchor,varchar(15),T,,,,,
