@@ -12,7 +12,8 @@ computeRechallengeFailCaseSeriesAnalyses(
   outcomeTable = targetTable,
   tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
   dechallengeRechallengeSettings,
-  databaseId = "1"
+  databaseId = "1",
+  showSubjectId = F
 )
 }
 \arguments{
@@ -39,7 +40,7 @@ can be created}
 
 \item{databaseId}{An identifier for the database}
 
-\item{sensitive}{if T then subject_ids and dates are hidden}
+\item{showSubjectId}{if F then subject_ids are hidden (recommended if sharing results)}
 }
 \value{
 An \code{Andromeda::andromeda()} object with the case series details of the failed rechallenge

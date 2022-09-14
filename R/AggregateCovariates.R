@@ -17,7 +17,7 @@
 #' Create aggregate covariate study settings
 #'
 #' @param targetIds   A list of cohortIds for the target cohorts
-#' @param outcomrIds  A list of cohortIds for the outcome cohorts
+#' @param outcomeIds  A list of cohortIds for the outcome cohorts
 #' @template timeAtRisk
 #' @param covariateSettings   An object created using \code{FeatureExtraction::createCovariateSettings}
 #'

@@ -19,6 +19,5 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Jenna Reps \email{reps@ohdsi.org}
-
 }
 \keyword{internal}

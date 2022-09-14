@@ -190,8 +190,8 @@ computeDechallengeRechallengeAnalyses <- function(
 #' @template TargetOutcomeTables
 #' @template TempEmulationSchema
 #' @param dechallengeRechallengeSettings   The settings for the timeToEvent study
-#' @param sensitive if T then subject_ids and dates are hidden
 #' @param databaseId An identifier for the database
+#' @param showSubjectId if F then subject_ids are hidden (recommended if sharing results)
 #'
 #' @return
 #' An \code{Andromeda::andromeda()} object with the case series details of the failed rechallenge
@@ -205,7 +205,8 @@ computeRechallengeFailCaseSeriesAnalyses <- function(
   outcomeTable =  targetTable,
   tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
   dechallengeRechallengeSettings,
-  databaseId = '1'
+  databaseId = '1',
+  showSubjectId = F
 ) {
 
   # check inputs
@@ -259,7 +260,8 @@ computeRechallengeFailCaseSeriesAnalyses <- function(
       target_ids = paste(dechallengeRechallengeSettings$targetCohortDefinitionIds, sep='', collapse = ','),
       outcome_ids = paste(dechallengeRechallengeSettings$outcomeCohortDefinitionIds, sep='', collapse = ','),
       dechallenge_stop_interval = dechallengeRechallengeSettings$dechallengeStopInterval,
-      dechallenge_evaluation_window = dechallengeRechallengeSettings$dechallengeEvaluationWindow
+      dechallenge_evaluation_window = dechallengeRechallengeSettings$dechallengeEvaluationWindow,
+      show_subject_id = showSubjectId
     )
     DatabaseConnector::executeSql(
       connection = connection,

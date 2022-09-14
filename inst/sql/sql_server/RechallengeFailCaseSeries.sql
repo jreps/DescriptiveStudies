@@ -10,21 +10,24 @@ where cohort_definition_id in (@outcome_ids)
 
 --extract persons that are rechallenge fails
 select
+
   @database_id as database_id,
   @dechallenge_stop_interval as dechallenge_stop_interval,
   @dechallenge_evaluation_window as dechallenge_evaluation_window,
-  dc1.cohort_definition_id as target_cohort_definition_id, io1.cohort_definition_id as outcome_cohort_definition_id,
-  dc1.subject_id,
-  dc1.era_number as first_exposure_number,
-  dc1.cohort_start_date as first_exposure_start_date,
-  dc1.cohort_end_date as first_exposure_end_date,
-  io1.era_number as first_outcome_number,
-  io1.cohort_start_date as first_outcome_start_date,
+  dc1.cohort_definition_id as target_cohort_definition_id,
+  io1.cohort_definition_id as outcome_cohort_definition_id,
+  dense_rank() over (partition by dc1.cohort_definition_id, io1.cohort_definition_id order by datediff(day, dc0.cohort_start_date, dc1.cohort_start_date), dc1.subject_id) as person_key,
+  {@show_subject_id}?{dc1.subject_id}:{NULL as subject_id},  --this is the field that we would want to allow parameter to make nullable or not export
+  dc1.era_number as dechallenge_exposure_number,
+  datediff(day, dc0.cohort_start_date, dc1.cohort_start_date) as dechallenge_exposure_start_date_offset,
+  datediff(day, dc0.cohort_start_date, dc1.cohort_end_date) as dechallenge_exposure_end_date_offset,
+  io1.era_number as dechallenge_outcome_number,
+  datediff(day, dc0.cohort_start_date, io1.cohort_start_date) as dechallenge_outcome_start_date_offset,
   de1.era_number as rechallenge_exposure_number,
-  de1.cohort_start_date as rechallenge_exposure_start_date,
-  de1.cohort_end_date as rechallenge_exposure_end_date,
+  datediff(day, dc0.cohort_start_date, de1.cohort_start_date) as rechallenge_exposure_start_date_offset,
+  datediff(day, dc0.cohort_start_date, de1.cohort_end_date) as rechallenge_exposure_end_date_offset,
   ro1.era_number as rechallenge_outcome_number,
-  ro1.cohort_start_date as rechallenge_outcome_start_date
+  datediff(day, dc0.cohort_start_date, ro1.cohort_start_date) as rechallenge_outcome_start_date_offset
 
 into #fail_case_series
 
