@@ -58,13 +58,12 @@ insertAndromedaToDatabase <- function(
   andromedaObject,
   tempEmulationSchema,
   bulkLoad = T,
-  stringAppendToTables = ''
+  tablePrefix = 'c_'
 ){
-
-  stringAppendToTables <- paste0(gsub(' ' , '', gsub('_', '', stringAppendToTables)), '_')
+  assert_table_prefix(tablePrefix)
 
   ParallelLogger::logInfo(
-    paste0('Inserting Andromeda table into Datbase table ', paste0(stringAppendToTables,tableName))
+    paste0('Inserting Andromeda table into Datbase table ', paste0(tablePrefix,tableName))
   )
 
   Andromeda::batchApply(
@@ -73,7 +72,7 @@ insertAndromedaToDatabase <- function(
       DatabaseConnector::insertTable(
         connection = connection,
         databaseSchema = databaseSchema,
-        tableName = paste0(stringAppendToTables,tableName),
+        tableName = paste0(tablePrefix,tableName),
         data = as.data.frame(x %>% dplyr::collect()),
         dropTableIfExists = F,
         createTable = F,
@@ -102,9 +101,9 @@ insertAndromedaToDatabase <- function(
 #'                                     \code{DatabaseConnector} package.
 #' @param resultSchema                 The name of the database schema that the result tables will be created.
 #' @param targetDialect                The database management system being used
-#' @param deleteExistingTables         If true any existing tables matching the PatientLevelPrediction result tables names will be deleted
-#' @param createTables                 If true the PatientLevelPrediction result tables will be created
-#' @param stringAppendToTables         A string that appends to the PatientLevelPrediction result tables
+#' @param deleteExistingTables         If true any existing tables matching the Characterization result tables names will be deleted
+#' @param createTables                 If true the Characterization result tables will be created
+#' @param tablePrefix                  A string appended to the Characterization result tables
 #' @param tempEmulationSchema          The temp schema used when the database management system is oracle
 #'
 #' @return
@@ -117,20 +116,15 @@ createCharacterizationTables <- function(
   targetDialect = 'postgresql',
   deleteExistingTables = T,
   createTables = T,
-  stringAppendToTables = 'c',
+  tablePrefix = 'c_',
   tempEmulationSchema = getOption("sqlRenderTempEmulationSchema")
 ){
-
+  assert_table_prefix(tablePrefix)
 
   if(deleteExistingTables){
     ParallelLogger::logInfo('Deleting existing tables')
-
-
     tables <- getResultTables()
-
-    if(stringAppendToTables != ''){
-      tables <- paste0(toupper(gsub('_','',gsub(' ','', stringAppendToTables))), '_', tables)
-    }
+    tables <- paste0(tablePrefix,tables)
 
     alltables <- DatabaseConnector::getTableNames(
       connection = conn,
@@ -162,19 +156,13 @@ createCharacterizationTables <- function(
 
   if(createTables){
     ParallelLogger::logInfo('Creating characterization results tables')
-
-    if(stringAppendToTables != ''){
-      stringAppendToTables <- paste0(toupper(gsub('_','',gsub(' ','', stringAppendToTables))), '_')
-    }
-
-
     renderedSql <- SqlRender::loadRenderTranslateSql(
       sqlFilename = "ResultTables.sql",
       packageName = "DescriptiveStudies",
       dbms = targetDialect,
       tempEmulationSchema = tempEmulationSchema,
       my_schema = resultSchema,
-      string_to_append = stringAppendToTables
+      table_prefix = tablePrefix
     )
 
     DatabaseConnector::executeSql(conn, renderedSql)
@@ -194,7 +182,8 @@ createCharacterizationTables <- function(
 #'                                     \code{DatabaseConnector} package.
 #' @param resultSchema                 The name of the database schema that the result tables will be created.
 #' @param targetDialect                The database management system being used
-#' @param stringAppendToTables         A string that appends to the PatientLevelPrediction result tables
+#' @param tablePrefix                  The table prefix to apply to the characterization result tables
+#' @param filePrefix                   The prefix to apply to the files
 #' @param tempEmulationSchema          The temp schema used when the database management system is oracle
 #' @param saveDirectory                The directory to save the csv results
 #'
@@ -206,11 +195,17 @@ exportDatabaseToCsv <- function(
   connectionDetails,
   resultSchema,
   targetDialect,
-  stringAppendToTables,
+  tablePrefix = "c_",
+  filePrefix = NULL,
   tempEmulationSchema = NULL,
   saveDirectory
 ){
-
+  assert_table_prefix(tablePrefix)
+  if (!is.null(filePrefix)) {
+    assert_table_prefix(filePrefix)
+  } else {
+    filePrefix = ''
+  }
   # connect to result database
   connection <- DatabaseConnector::connect(
     connectionDetails = connectionDetails
@@ -222,8 +217,6 @@ exportDatabaseToCsv <- function(
     dir.create(saveDirectory, recursive = T)
   }
 
-  stringAppendToTables <- paste0(gsub(' ' , '', gsub('_', '', stringAppendToTables)), '_')
-
   # get the table names using the function in uploadToDatabase.R
   tables <- getResultTables()
 
@@ -233,7 +226,7 @@ exportDatabaseToCsv <- function(
     sql <- SqlRender::render(
       sql,
       resultSchema = resultSchema,
-      appendtotable = stringAppendToTables,
+      appendtotable = tablePrefix,
       tablename = table
     )
     sql <- SqlRender::translate(
@@ -245,7 +238,7 @@ exportDatabaseToCsv <- function(
     # save the results as a csv
     readr::write_excel_csv(
       x = result,
-      file = file.path(saveDirectory, paste0(table,'.csv'))
+      file = file.path(saveDirectory, paste0(filePrefix, table,'.csv'))
     )
   }
 
@@ -258,7 +251,27 @@ getResultTables <- function(){
       system.file(
         'settings', 'resultsDataModelSpecification.csv',
         package = 'DescriptiveStudies'
-      )
+      ),
+      show_col_types = FALSE
     )$table_name
   )))
+}
+
+checkTablePrefix <- function(
+    tablePrefix,
+    ...
+) {
+  checkmate::assert_character(tablePrefix)
+  errorMessage = "Table prefix must contain lower-case alpha-numeric characters with no spaces and end with an underscore (_) character."
+  if (!endsWith(x = tablePrefix, suffix = "_")) {
+    return(errorMessage)
+  }
+  tempTablePrefix <- gsub(pattern = "_",
+                          replacement = '',
+                          x = tablePrefix)
+  if (!grepl(pattern = "^([a-z0-9]+)$",
+             x = tempTablePrefix)) {
+    return(errorMessage)
+  }
+  return(TRUE)
 }

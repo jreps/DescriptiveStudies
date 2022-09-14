@@ -1,4 +1,4 @@
-CREATE TABLE @my_schema.@string_to_appendtime_to_event (
+CREATE TABLE @my_schema.@table_prefixtime_to_event (
     database_id int NOT NULL,
     target_cohort_definition_id bigint NOT NULL,
     outcome_cohort_definition_id bigint NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE @my_schema.@string_to_appendtime_to_event (
     time_scale varchar(20) NOT NULL
 );
 
-CREATE TABLE @my_schema.@string_to_appendrechallenge_fail_case_series (
+CREATE TABLE @my_schema.@table_prefixrechallenge_fail_case_series (
     --run_id,
     database_id int NOT NULL,
     dechallenge_stop_interval int,
@@ -29,7 +29,7 @@ CREATE TABLE @my_schema.@string_to_appendrechallenge_fail_case_series (
     rechallenge_outcome_start_date date NOT NULL
 );
 
-CREATE TABLE @my_schema.@string_to_appenddechallenge_rechallenge (
+CREATE TABLE @my_schema.@table_prefixdechallenge_rechallenge (
     database_id int NOT NULL,
     dechallenge_stop_interval int,
     dechallenge_evaluation_window int,
@@ -54,7 +54,7 @@ CREATE TABLE @my_schema.@string_to_appenddechallenge_rechallenge (
 
 
 -- covariateSettings
-CREATE TABLE @my_schema.@string_to_appendsettings (
+CREATE TABLE @my_schema.@table_prefixsettings (
     run_id int NOT NULL,
     database_id varchar(10),
     covariate_setting_json varchar(MAX),
@@ -68,7 +68,7 @@ CREATE TABLE @my_schema.@string_to_appendsettings (
     cohort_type varchar(10)
 );
 
-CREATE TABLE @my_schema.@string_to_appendanalysis_ref (
+CREATE TABLE @my_schema.@table_prefixanalysis_ref (
     run_id int NOT NULL,
     database_id int NOT NULL,
     analysis_id int NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE @my_schema.@string_to_appendanalysis_ref (
     missing_means_zero varchar(1)
 );
 
-CREATE TABLE @my_schema.@string_to_appendcovariate_ref (
+CREATE TABLE @my_schema.@table_prefixcovariate_ref (
     run_id int NOT NULL,
     database_id int NOT NULL,
     covariate_id int NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE @my_schema.@string_to_appendcovariate_ref (
     concept_id int
 );
 
-CREATE TABLE @my_schema.@string_to_appendcovariates (
+CREATE TABLE @my_schema.@table_prefixcovariates (
     run_id int NOT NULL,
     database_id int NOT NULL,
     cohort_definition_id int NOT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE @my_schema.@string_to_appendcovariates (
     average_value float NOT NULL
 );
 
-CREATE TABLE @my_schema.@string_to_appendcovariates_continuous (
+CREATE TABLE @my_schema.@table_prefixcovariates_continuous (
     run_id int NOT NULL,
     database_id int NOT NULL,
     cohort_definition_id int NOT NULL,

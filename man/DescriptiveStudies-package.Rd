@@ -18,12 +18,6 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: 
-
-Authors:
-\itemize{
-  \item Jenna Reps
-}
-
+\strong{Maintainer}: Jenna Reps \email{reps@ohdsi.org}
 }
 \keyword{internal}

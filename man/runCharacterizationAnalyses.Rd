@@ -14,7 +14,7 @@ runCharacterizationAnalyses(
   cdmDatabaseSchema,
   characterizationSettings,
   saveDirectory,
-  stringAppendToTables = "c",
+  tablePrefix = "c_",
   databaseId = "1"
 )
 }
@@ -43,7 +43,7 @@ can be created}
 
 \item{saveDirectory}{The location to save the results to}
 
-\item{stringAppendToTables}{A string to append the tables in the results}
+\item{tablePrefix}{A string to append the tables in the results}
 
 \item{databaseId}{The unqiue identifier for the cdm database}
 }

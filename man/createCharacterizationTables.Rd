@@ -10,7 +10,7 @@ createCharacterizationTables(
   targetDialect = "postgresql",
   deleteExistingTables = T,
   createTables = T,
-  stringAppendToTables = "c",
+  tablePrefix = "c_",
   tempEmulationSchema = getOption("sqlRenderTempEmulationSchema")
 )
 }
@@ -23,11 +23,11 @@ function \code{connect} in the
 
 \item{targetDialect}{The database management system being used}
 
-\item{deleteExistingTables}{If true any existing tables matching the PatientLevelPrediction result tables names will be deleted}
+\item{deleteExistingTables}{If true any existing tables matching the Characterization result tables names will be deleted}
 
-\item{createTables}{If true the PatientLevelPrediction result tables will be created}
+\item{createTables}{If true the Characterization result tables will be created}
 
-\item{stringAppendToTables}{A string that appends to the PatientLevelPrediction result tables}
+\item{tablePrefix}{A string appended to the Characterization result tables}
 
 \item{tempEmulationSchema}{The temp schema used when the database management system is oracle}
 }

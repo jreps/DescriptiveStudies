@@ -20,3 +20,6 @@
 #' @importFrom rlang .data
 #' @importFrom dplyr %>%
 NULL
+
+# Add custom assertions
+assert_table_prefix <- checkmate::makeAssertionFunction(checkTablePrefix)
