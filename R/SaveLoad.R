@@ -64,13 +64,10 @@ exportTimeToEventToCsv <- function(
   Andromeda::batchApply(
     tbl = result$timeToEvent,
     fun = function(x){
-      firstTime <- !file.exists(file.path(saveDirectory, 'time_to_event.csv'));
-      colnames(x) <- SqlRender::camelCaseToSnakeCase(colnames(x))
-      readr::write_csv(
+      CohortGenerator::writeCsv(
         x = as.data.frame(x %>% dplyr::collect()),
         file = file.path(saveDirectory, 'time_to_event.csv'),
-        append = T,
-        col_names = firstTime
+        append = T
       )
     }
   )
@@ -225,13 +222,10 @@ exportDechallengeRechallengeToCsv <- function(
     Andromeda::batchApply(
       tbl = result$dechallengeRechallenge,
       fun = function(x){
-        firstTime <- !file.exists(file.path(saveDirectory, 'dechallenge_rechallenge.csv'));
-        colnames(x) <- SqlRender::camelCaseToSnakeCase(colnames(x))
-        readr::write_csv(
+        CohortGenerator::writeCsv(
           x = as.data.frame(x %>% dplyr::collect()),
           file = file.path(saveDirectory, 'dechallenge_rechallenge.csv'),
-          append = T,
-          col_names = firstTime
+          append = T
         )
       }
     )
@@ -273,13 +267,10 @@ exportRechallengeFailCaseSeriesToCsv <- function(
     Andromeda::batchApply(
       tbl = result$rechallengeFailCaseSeries,
       fun = function(x){
-        firstTime <- !file.exists(file.path(saveDirectory, 'rechallenge_fail_case_series.csv'));
-        colnames(x) <- SqlRender::camelCaseToSnakeCase(colnames(x))
-        readr::write_csv(
+        CohortGenerator::writeCsv(
           x = as.data.frame(x %>% dplyr::collect()),
           file = file.path(saveDirectory, 'rechallenge_fail_case_series.csv'),
-          append = T,
-          col_names = firstTime
+          append = T
         )
       }
     )
@@ -366,13 +357,10 @@ exportAggregateCovariateToCsv <- function(
   Andromeda::batchApply(
     tbl = result$analysisRef,
     fun = function(x){
-      firstTime <- !file.exists(file.path(saveDirectory, 'analysis_ref.csv'));
-      colnames(x) <- SqlRender::camelCaseToSnakeCase(colnames(x))
-      readr::write_csv(
+      CohortGenerator::writeCsv(
         x = as.data.frame(x %>% dplyr::collect()),
         file = file.path(saveDirectory, 'analysis_ref.csv'),
-        append = T,
-        col_names = firstTime
+        append = T
       )
     }
   )
@@ -381,13 +369,10 @@ exportAggregateCovariateToCsv <- function(
   Andromeda::batchApply(
     tbl = result$covariateRef,
     fun = function(x){
-      firstTime <- !file.exists(file.path(saveDirectory, 'covariate_ref.csv'));
-      colnames(x) <- SqlRender::camelCaseToSnakeCase(colnames(x))
-      readr::write_csv(
+      CohortGenerator::writeCsv(
         x = as.data.frame(x %>% dplyr::collect()),
         file = file.path(saveDirectory, 'covariate_ref.csv'),
-        append = T,
-        col_names = firstTime
+        append = T
       )
     }
   )
@@ -396,13 +381,10 @@ exportAggregateCovariateToCsv <- function(
   Andromeda::batchApply(
     tbl = result$covariates,
     fun = function(x){
-      firstTime <- !file.exists(file.path(saveDirectory, 'covariates.csv'));
-      colnames(x) <- SqlRender::camelCaseToSnakeCase(colnames(x))
-      readr::write_csv(
+      CohortGenerator::writeCsv(
         x = as.data.frame(x %>% dplyr::collect()),
         file = file.path(saveDirectory, 'covariates.csv'),
-        append = T,
-        col_names = firstTime
+        append = T
       )
     }
   )
@@ -411,13 +393,10 @@ exportAggregateCovariateToCsv <- function(
   Andromeda::batchApply(
     tbl = result$covariatesContinuous,
     fun = function(x){
-      firstTime <- !file.exists(file.path(saveDirectory, 'covariates_continuous.csv'));
-      colnames(x) <- SqlRender::camelCaseToSnakeCase(colnames(x))
-      readr::write_csv(
+      CohortGenerator::writeCsv(
         x = as.data.frame(x %>% dplyr::collect()),
         file = file.path(saveDirectory, 'covariates_continuous.csv'),
-        append = T,
-        col_names = firstTime
+        append = T
       )
     }
   )

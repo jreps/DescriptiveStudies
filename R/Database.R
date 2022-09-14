@@ -124,16 +124,16 @@ createCharacterizationTables <- function(
   if(deleteExistingTables){
     ParallelLogger::logInfo('Deleting existing tables')
     tables <- getResultTables()
-    tables <- paste0(tablePrefix,tables)
+    tables <- paste0(toupper(tablePrefix),tables)
 
-    alltables <- DatabaseConnector::getTableNames(
+    alltables <- toupper(DatabaseConnector::getTableNames(
       connection = conn,
       databaseSchema = resultSchema
-    )
+    ))
 
     for(tb in tables){
-      if(tb %in%alltables){
-        sql <- 'TRUNCATE TABLE @my_schema.@table'
+      if(tb %in% alltables){
+        sql <- 'DELETE FROM @my_schema.@table'
         sql <- SqlRender::render(sql,
                                  my_schema = resultSchema,
                                  table=tb)
@@ -233,12 +233,13 @@ exportDatabaseToCsv <- function(
       sql = sql,
       targetDialect = targetDialect,
       tempEmulationSchema = tempEmulationSchema)
-    result <- DatabaseConnector::querySql(connection, sql)
+    result <- DatabaseConnector::querySql(connection, sql, snakeCaseToCamelCase = TRUE)
+    result <- formatDouble(result)
 
     # save the results as a csv
-    readr::write_excel_csv(
+    CohortGenerator::writeCsv(
       x = result,
-      file = file.path(saveDirectory, paste0(filePrefix, table,'.csv'))
+      file = file.path(saveDirectory, paste0(tolower(filePrefix), tolower(table),'.csv'))
     )
   }
 
@@ -247,13 +248,12 @@ exportDatabaseToCsv <- function(
 
 getResultTables <- function(){
   return(unique(toupper(
-    readr::read_csv(
-      system.file(
+    CohortGenerator::readCsv(
+      file = system.file(
         'settings', 'resultsDataModelSpecification.csv',
         package = 'DescriptiveStudies'
-      ),
-      show_col_types = FALSE
-    )$table_name
+      )
+    )$tableName
   )))
 }
 
@@ -274,4 +274,14 @@ checkTablePrefix <- function(
     return(errorMessage)
   }
   return(TRUE)
+}
+
+# Removes scientific notation for any columns that are
+# formatted as doubles. Based on this GitHub issue:
+# https://github.com/tidyverse/readr/issues/671#issuecomment-300567232
+formatDouble <- function(x, scientific = F, ...) {
+  doubleCols <- vapply(x, is.double, logical(1))
+  x[doubleCols] <- lapply(x[doubleCols], format, scientific = scientific, ...)
+  x
+
 }

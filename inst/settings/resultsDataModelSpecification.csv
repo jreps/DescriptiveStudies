@@ -8,8 +8,8 @@ time_to_event,time_to_event,int,Y,N,N,N,N,The time (in days) from target index t
 time_to_event,num_events,int,Y,N,N,N,N,Number of events that occur during the specified time to event
 time_to_event,time_scale,varchar(20),Y,N,N,N,N,time scale for the number of events
 rechallenge_fail_case_series,database_id,varchar(100),Y,Y,N,N,N,The database identifier
-rechallenge_fail_case_series,dechallenge_stop_interval,int,Y,N,N,N,N,The time period that É
-rechallenge_fail_case_series,dechallenge_evaluation_window,int,Y,N,N,N,N,The time period that É
+rechallenge_fail_case_series,dechallenge_stop_interval,int,Y,N,N,N,N,The time period that Ã‰
+rechallenge_fail_case_series,dechallenge_evaluation_window,int,Y,N,N,N,N,The time period that Ã‰
 rechallenge_fail_case_series,target_cohort_definition_id,bigint,Y,Y,N,N,N,The cohort definition id for the target cohort
 rechallenge_fail_case_series,outcome_cohort_definition_id,bigint,Y,Y,N,N,N,The cohort definition id for the outcome cohort
 rechallenge_fail_case_series,person_key,int,Y,Y,N,N,N,The dense rank for the patient (an identifier that is not the same as the database)
@@ -28,7 +28,7 @@ dechallenge_rechallenge,database_id,varchar(100),Y,Y,N,N,N,The database identifi
 dechallenge_rechallenge,target_cohort_definition_id,bigint,Y,Y,N,N,N,The cohort definition id for the target cohort
 dechallenge_rechallenge,outcome_cohort_definition_id,bigint,Y,Y,N,N,N,The cohort definition id for the outcome cohort
 dechallenge_rechallenge,num_exposure_eras,int,Y,N,N,N,N,The number of exposure eras
-dechallenge_rechallenge,num_persons_exposure,int,Y,N,N,N,N,The number of persons exposed
+dechallenge_rechallenge,num_persons_exposed,int,Y,N,N,N,N,The number of persons exposed
 dechallenge_rechallenge,num_cases,int,Y,N,N,N,N,The number of cases
 dechallenge_rechallenge,dechallenge_fail,int,Y,N,N,N,N,The dechallenge fail count
 dechallenge_rechallenge,dechallenge_success,int,Y,N,N,N,N,The dechallenge success count
@@ -50,12 +50,12 @@ analysis_ref,start_day,int,Y,N,N,N,N,The start day
 analysis_ref,end_day,int,Y,N,N,N,N,The end day
 analysis_ref,is_binary,varchar(1),Y,N,N,N,N,Is this a binary analysis
 analysis_ref,missing_means_zero,varchar(1),Y,N,N,N,N,Missing means zero
-covariate_ref,database_id,int,Y,Y,N,N,N,The database identifier
+covariate_ref,database_id,varchar(100),Y,Y,N,N,N,The database identifier
 covariate_ref,run_id,int,Y,Y,N,N,N,The run identifier
 covariate_ref,covariate_id,int,Y,Y,N,N,N,The covariate identifier
 covariate_ref,covariate_name,varchar(MAX),Y,N,N,N,N,The covariate name
 covariate_ref,analysis_id,int,Y,N,N,N,N,The analysis identifier
-covariate_ref,concept_id,int,Y,N,N,N,N,The concept identifier
+covariate_ref,concept_id,bigint,Y,N,N,N,N,The concept identifier
 covariates,database_id,varchar(100),Y,Y,N,N,N,The database identifier
 covariates,run_id,int,Y,Y,N,N,N,The run identifier
 covariates,cohort_definition_id,int,Y,Y,N,N,N,The cohort definition id

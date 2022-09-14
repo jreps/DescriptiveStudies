@@ -132,7 +132,7 @@ test_that("computeTimeToEventSettings", {
   )
 
   # check it saved correctly and uses snake case
-  res <- readr::read_csv(
+  res <- CohortGenerator::readCsv(
     file =
       file.path(
     tempdir(),
