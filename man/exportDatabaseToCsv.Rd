@@ -8,7 +8,8 @@ exportDatabaseToCsv(
   connectionDetails,
   resultSchema,
   targetDialect,
-  tablePrefix,
+  tablePrefix = "c_",
+  filePrefix = NULL,
   tempEmulationSchema = NULL,
   saveDirectory
 )
@@ -22,7 +23,9 @@ function \code{connect} in the
 
 \item{targetDialect}{The database management system being used}
 
-\item{tablePrefix}{A string that appends to the PatientLevelPrediction result tables}
+\item{tablePrefix}{The table prefix to apply to the characterization result tables}
+
+\item{filePrefix}{The prefix to apply to the files}
 
 \item{tempEmulationSchema}{The temp schema used when the database management system is oracle}
 

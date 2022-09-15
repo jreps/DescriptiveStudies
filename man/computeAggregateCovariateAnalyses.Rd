@@ -14,7 +14,7 @@ computeAggregateCovariateAnalyses(
   outcomeTable = targetTable,
   tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
   aggregateCovariateSettings,
-  databaseId = "1",
+  databaseId = "database 1",
   runId = 1
 )
 }
@@ -42,7 +42,7 @@ can be created}
 
 \item{aggregateCovariateSettings}{The settings for the AggregateCovariate study}
 
-\item{databaseId}{Unique identifier for the database}
+\item{databaseId}{Unique identifier for the database (string)}
 
 \item{runId}{Unique identifier for the tar and covariate setting}
 }

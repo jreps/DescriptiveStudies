@@ -13,7 +13,7 @@ computeTimeToEventAnalyses(
   tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
   cdmDatabaseSchema,
   timeToEventSettings,
-  databaseId = "1"
+  databaseId = "database 1"
 )
 }
 \arguments{
@@ -40,7 +40,7 @@ can be created}
 
 \item{timeToEventSettings}{The settings for the timeToEvent study}
 
-\item{databaseId}{An identifier for the database}
+\item{databaseId}{An identifier for the database (string)}
 }
 \value{
 An \code{Andromeda::andromeda()} object containing the time to event results.

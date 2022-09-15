@@ -12,7 +12,7 @@ computeDechallengeRechallengeAnalyses(
   outcomeTable = targetTable,
   tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
   dechallengeRechallengeSettings,
-  databaseId = "1"
+  databaseId = "database 1"
 )
 }
 \arguments{
@@ -37,7 +37,7 @@ can be created}
 
 \item{dechallengeRechallengeSettings}{The settings for the timeToEvent study}
 
-\item{databaseId}{An identifier for the database}
+\item{databaseId}{An identifier for the database (string)}
 }
 \value{
 An \code{Andromeda::andromeda()} object containing the dechallenge rechallenge results

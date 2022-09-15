@@ -40,8 +40,8 @@ from (select *, row_number() over (partition by cohort_definition_id, subject_id
 	inner join (select *, row_number() over (partition by cohort_definition_id, subject_id order by cohort_start_date) as era_number from #outcome_cohort) io1
 	on dc1.subject_id = io1.subject_id
 	and io1.cohort_start_date > dc1.cohort_start_date and io1.cohort_start_date <= dc1.cohort_end_date
-	and dc1.cohort_end_date <= dateadd(day,@dechallenge_stop_interval,io1.cohort_start_date)
-	left join #outcome_cohort ro0
+	and dc1.cohort_end_date <= dateadd(day,@dechallenge_stop_interval,io1.cohort_start_date) -- exposure ends shortly after outcome starts
+	left join #outcome_cohort ro0 -- used to exclude people who have the outcome between exposure or next eligible time
 	on dc1.subject_id = ro0.subject_id
 	and io1.cohort_definition_id = ro0.cohort_definition_id
 	and ro0.cohort_start_date > dc1.cohort_end_date

@@ -12,7 +12,7 @@ computeRechallengeFailCaseSeriesAnalyses(
   outcomeTable = targetTable,
   tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
   dechallengeRechallengeSettings,
-  databaseId = "1",
+  databaseId = "database 1",
   showSubjectId = F
 )
 }
@@ -38,7 +38,7 @@ can be created}
 
 \item{dechallengeRechallengeSettings}{The settings for the timeToEvent study}
 
-\item{databaseId}{An identifier for the database}
+\item{databaseId}{An identifier for the database (string)}
 
 \item{showSubjectId}{if F then subject_ids are hidden (recommended if sharing results)}
 }
