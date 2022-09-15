@@ -47,10 +47,8 @@ createTimeToEventSettings <- function(
 
   # create data.frame with all combinations
   result <- list(
-    pairs = expand.grid(
-      targetCohortDefinitionId = targetIds,
-      outcomeCohortDefinitionId = outcomeIds
-    )
+    targetIds = targetIds,
+    outcomeIds = outcomeIds
   )
 
   class(result) <- 'timeToEventSettings'
@@ -118,10 +116,16 @@ computeTimeToEventAnalyses <- function(
 
     # upload table to #cohort_settings
     message("Uploading #cohort_settings")
+
+    pairs <- expand.grid(
+      targetCohortDefinitionId = timeToEventSettings$targetIds,
+      outcomeCohortDefinitionId = timeToEventSettings$outcomeIds
+    )
+
     DatabaseConnector::insertTable(
       connection = connection,
       tableName = "#cohort_settings",
-      data = timeToEventSettings$pairs,
+      data = pairs,
       dropTableIfExists = TRUE,
       createTable = TRUE,
       tempTable = TRUE,
