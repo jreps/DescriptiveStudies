@@ -15,7 +15,8 @@ runCharacterizationAnalyses(
   characterizationSettings,
   saveDirectory,
   tablePrefix = "c_",
-  databaseId = "1"
+  databaseId = "1",
+  showSubjectId = F
 )
 }
 \arguments{
@@ -46,6 +47,8 @@ can be created}
 \item{tablePrefix}{A string to append the tables in the results}
 
 \item{databaseId}{The unqiue identifier for the cdm database}
+
+\item{showSubjectId}{Whether to include subjectId of failed rechallenge case series or hide}
 }
 \value{
 An sqlite database with the results is saved into the saveDirectory and a csv file named tacker.csv

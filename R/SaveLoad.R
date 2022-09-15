@@ -14,6 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+colnamesLower <- function(data){
+  colnames(data) <- tolower(colnames(data))
+  return(data)
+}
+
 #' Save the TimeToEvent results
 #'
 #' @param result  The output of running \code{computeTimeToEventAnalyses()}
@@ -65,7 +70,7 @@ exportTimeToEventToCsv <- function(
     tbl = result$timeToEvent,
     fun = function(x){
       CohortGenerator::writeCsv(
-        x = as.data.frame(x %>% dplyr::collect()),
+        x = colnamesLower(as.data.frame(x %>% dplyr::collect())),
         file = file.path(saveDirectory, 'time_to_event.csv'),
         append = T
       )
@@ -223,7 +228,7 @@ exportDechallengeRechallengeToCsv <- function(
       tbl = result$dechallengeRechallenge,
       fun = function(x){
         CohortGenerator::writeCsv(
-          x = as.data.frame(x %>% dplyr::collect()),
+          x = colnamesLower(as.data.frame(x %>% dplyr::collect())),
           file = file.path(saveDirectory, 'dechallenge_rechallenge.csv'),
           append = T
         )
@@ -268,7 +273,7 @@ exportRechallengeFailCaseSeriesToCsv <- function(
       tbl = result$rechallengeFailCaseSeries,
       fun = function(x){
         CohortGenerator::writeCsv(
-          x = as.data.frame(x %>% dplyr::collect()),
+          x = colnamesLower(as.data.frame(x %>% dplyr::collect())),
           file = file.path(saveDirectory, 'rechallenge_fail_case_series.csv'),
           append = T
         )
@@ -358,7 +363,7 @@ exportAggregateCovariateToCsv <- function(
     tbl = result$analysisRef,
     fun = function(x){
       CohortGenerator::writeCsv(
-        x = as.data.frame(x %>% dplyr::collect()),
+        x = colnamesLower(as.data.frame(x %>% dplyr::collect())),
         file = file.path(saveDirectory, 'analysis_ref.csv'),
         append = T
       )
@@ -370,7 +375,7 @@ exportAggregateCovariateToCsv <- function(
     tbl = result$covariateRef,
     fun = function(x){
       CohortGenerator::writeCsv(
-        x = as.data.frame(x %>% dplyr::collect()),
+        x = colnamesLower(as.data.frame(x %>% dplyr::collect())),
         file = file.path(saveDirectory, 'covariate_ref.csv'),
         append = T
       )
@@ -382,7 +387,7 @@ exportAggregateCovariateToCsv <- function(
     tbl = result$covariates,
     fun = function(x){
       CohortGenerator::writeCsv(
-        x = as.data.frame(x %>% dplyr::collect()),
+        x = colnamesLower(as.data.frame(x %>% dplyr::collect())),
         file = file.path(saveDirectory, 'covariates.csv'),
         append = T
       )
@@ -394,7 +399,7 @@ exportAggregateCovariateToCsv <- function(
     tbl = result$covariatesContinuous,
     fun = function(x){
       CohortGenerator::writeCsv(
-        x = as.data.frame(x %>% dplyr::collect()),
+        x = colnamesLower(as.data.frame(x %>% dplyr::collect())),
         file = file.path(saveDirectory, 'covariates_continuous.csv'),
         append = T
       )

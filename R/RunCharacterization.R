@@ -130,6 +130,7 @@ loadCharacterizationSettings <- function(
 #' @param saveDirectory The location to save the results to
 #' @param tablePrefix A string to append the tables in the results
 #' @param databaseId The unqiue identifier for the cdm database
+#' @param showSubjectId  Whether to include subjectId of failed rechallenge case series or hide
 #'
 #' @return
 #' An sqlite database with the results is saved into the saveDirectory and a csv file named tacker.csv
@@ -147,7 +148,8 @@ runCharacterizationAnalyses <- function(
   characterizationSettings,
   saveDirectory,
   tablePrefix = 'c_',
-  databaseId = '1'
+  databaseId = '1',
+  showSubjectId = F
 ){
   # inputs checks
   errorMessages <- checkmate::makeAssertCollection()
@@ -260,6 +262,50 @@ runCharacterizationAnalyses <- function(
           databaseSchema = 'main',
           tableName = 'dechallenge_rechallenge',
           andromedaObject = result$dechallengeRechallenge,
+          tablePrefix = tablePrefix
+        )
+      }
+
+      # run failed analysis
+      ParallelLogger::logInfo(paste0('Running rechallenge failed case analysis ', i))
+
+      result <- tryCatch({
+        computeRechallengeFailCaseSeriesAnalyses(
+          connectionDetails = connectionDetails,
+          targetDatabaseSchema = targetDatabaseSchema,
+          targetTable = targetTable,
+          outcomeDatabaseSchema = outcomeDatabaseSchema,
+          outcomeTable = outcomeTable,
+          tempEmulationSchema = tempEmulationSchema,
+          dechallengeRechallengeSettings = characterizationSettings$dechallengeRechallengeSettings[[i]],
+          databaseId = databaseId,
+          showSubjectId = showSubjectId
+        )
+      },
+      error = function(e){return(NULL)}
+      )
+
+      if(!is.null(result)){
+        # log that run was sucessful
+        CohortGenerator::writeCsv(
+          x = data.frame(
+            analysis_type = 'rechallengeFailCaseSeries',
+            run_id = i,
+            database_id = databaseId,
+            date_time = as.character(Sys.time())
+          ),
+          file = file.path(saveDirectory, 'tracker.csv'),
+          append = T,
+          warnOnCaseMismatch = FALSE,
+          warnOnFileNameCaseMismatch = FALSE,
+          warnOnUploadRuleViolations = FALSE
+        )
+
+        insertAndromedaToDatabase(
+          connection = conn,
+          databaseSchema = 'main',
+          tableName = 'rechallenge_fail_case_series',
+          andromedaObject = result$rechallengeFailCaseSeries,
           tablePrefix = tablePrefix
         )
       }
